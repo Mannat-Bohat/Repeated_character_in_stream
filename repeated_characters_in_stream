@@ -1,0 +1,52 @@
+#include <iostream> //repeated character in stream
+#include <string>
+#include <unordered_map>
+#include <queue>
+
+using namespace std;
+
+class Solution {
+public:
+    string FirstNonRepeating(string A) {
+        unordered_map<char, int> count;
+        queue<char> q;
+        string ans = "";
+        
+        for(int i = 0; i < A.length(); i++) {
+            char ch = A[i];
+            
+            count[ch]++;
+            q.push(ch);
+        
+            while(!q.empty()) {
+                if(count[q.front()] > 1) {
+    
+                    q.pop();
+                }
+                else {
+                    ans.push_back(q.front());
+                    break;
+                }
+            }
+            
+    
+            if(q.empty()) {
+                ans.push_back('#');
+            }
+        }
+        return ans;
+    }
+};
+
+
+int main() {
+    Solution obj;
+    
+    string A = "aabc";
+    string result = obj.FirstNonRepeating(A);
+    
+    cout << "Input Stream: " << A << endl;
+    cout << "Output Result: " << result << endl; // Expected: "a#bb"
+    
+    return 0;
+}
